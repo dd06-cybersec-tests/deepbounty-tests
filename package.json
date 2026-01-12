@@ -1,0 +1,14 @@
+{
+	"name": "vulnerable-app-test",
+	"version": "1.0.0",
+	"description": "Test",
+	"dependencies": {
+		"react": "^17.0.2",
+		"lodash": "^4.17.21",
+		"@internal-corp-1234/auth-module": "^1.0.0",
+		"company-billing-sdk-bugbounty": "^2.3.1"
+	},
+	"scripts": {
+		"start": "node index.js"
+	}
+}

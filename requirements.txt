@@ -1,0 +1,6 @@
+flask==2.0.1
+requests==2.26.0
+# The following packages do not exist on public PyPI
+# and represent internal tools:
+internal-data-processor==0.1.5
+corp-payment-gateway-v2>=1.2

@@ -1,0 +1,21 @@
+name: CI Build
+
+on: [release]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            # Safe Action (Official)
+            - name: Setup Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "14"
+
+            # VULNERABLE ACTION
+            - name: Deploy Helper
+              uses: non-existing-github-action/deployment-helper@v1
+              with:
+                  target: "staging"
