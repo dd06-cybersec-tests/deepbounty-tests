@@ -4,7 +4,7 @@ FROM python:3.9-slim AS builder
 WORKDIR /app
 
 # Vulnerable Base Image
-FROM bugbounty-test-company-devs/custom-node-base:14
+FROM bugbountytestcompanydevs/custom-node-base:14
 
 COPY . .
 CMD ["python", "app.py"]
