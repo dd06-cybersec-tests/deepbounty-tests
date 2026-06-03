@@ -1,0 +1,23 @@
+name: CI
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Deploy
+              run: npx deepbounty-internal-deploy-xyz123 --env prod
+
+            - name: Migrate
+              run: npx -p @acme-private-xyz123/migrate-tool run
+
+            - name: Codegen
+              run: npx -y internal-codegen-xyz123@2.1.0 generate
+
+            - name: Lint & format
+              run: npx eslint . && npx prettier --check .
+
+            - name: Decoy
+              run: echo "mynpx and runnpx are not npx"
