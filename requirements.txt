@@ -1,6 +1,28 @@
-flask==2.0.1
-requests==2.26.0
-# The following packages do not exist on public PyPI
-# and represent internal tools:
-internal-data-processor==0.1.5
-corp-payment-gateway-v2>=1.2
+# --- should NOT alert (exist on PyPI, various separator forms) ---
+requests==2.31.0
+Flask==3.0.0
+Pillow>=10.0.0
+Django==5.0
+# These are the same as above after PEP 503 normalization:
+# my-pkg, my-pkg, my-pkg — parser should deduplicate to one check
+scikit_learn==1.4.0
+scikit-learn==1.4.0
+
+# --- should alert (private, not on PyPI) ---
+my-company-internal-auth-sdk==1.0.0
+Corp_Logging_Utils>=2.0
+# The two lines below normalize to the same key — should produce only ONE alert
+acme.private.helpers==0.1.0
+acme-private-helpers==0.1.0
+
+# --- should NOT parse (filters) ---
+-r other-requirements.txt
+-c constraints.txt
+https://github.com/org/repo/archive/main.zip
+git+https://github.com/org/private-lib.git@v1.2.3
+./local-package
+/absolute/path/to/pkg
+
+# --- edge cases ---
+# Comment-only line, blank line, version with extras
+boto3[s3]==1.34.0

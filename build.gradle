@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // should NOT alert — exists on Central
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.0'
+
+    // should alert — MavenGate: unregistered domain
+    implementation 'com.nonexistentcorp99887:private-service-client:1.0.0'
+
+    // should alert — JitPack dangling account (jitpack.io declared above)
+    implementation 'com.github.nonexistentuser9988776655:android-lib:1.0'
+
+    // should alert — dynamic version (amplifier noted in description)
+    implementation 'com.abandoneddomain99887:utils:1.+'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}

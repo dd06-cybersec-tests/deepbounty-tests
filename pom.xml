@@ -1,0 +1,61 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>my-app</artifactId>
+  <version>1.0.0</version>
+
+  <repositories>
+    <!-- JitPack declared — enables JitPack checks for com.github.* deps -->
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+    <!-- Clojars declared — enables Clojars flat-group checks -->
+    <repository>
+      <id>clojars</id>
+      <url>https://repo.clojars.org</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <!-- should NOT alert — well-known, domain is registered, exists on Central -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>6.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>33.0.0-jre</version>
+    </dependency>
+
+    <!-- should alert — MavenGate: domain nonexistentcorp99887.com almost certainly unregistered -->
+    <dependency>
+      <groupId>com.nonexistentcorp99887</groupId>
+      <artifactId>private-auth-lib</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+    <!-- should alert — JitPack + dangling GitHub account (user almost certainly absent) -->
+    <dependency>
+      <groupId>com.github.nonexistentuser9988776655</groupId>
+      <artifactId>some-lib</artifactId>
+      <version>v1.0.0</version>
+    </dependency>
+
+    <!-- should alert — MavenGate amplified by SNAPSHOT version (noted in alert description) -->
+    <dependency>
+      <groupId>com.abandoneddomain99887</groupId>
+      <artifactId>core</artifactId>
+      <version>2.0.0-SNAPSHOT</version>
+    </dependency>
+
+    <!-- should alert — Clojars flat group (no dot), not grandfathered -->
+    <dependency>
+      <groupId>acme-private-utils</groupId>
+      <artifactId>helper</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+  </dependencies>
+</project>

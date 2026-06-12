@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- should NOT alert — exist on nuget.org -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
+
+    <!-- should alert — private packages, absent from nuget.org -->
+    <PackageReference Include="Acme.Internal.Authentication" Version="2.1.0" />
+    <PackageReference Include="Corp.DataLayer.Abstractions" Version="1.0.0" />
+
+    <!-- should NOT parse — MSBuild variable placeholder -->
+    <PackageReference Include="$(InternalSdkPackage)" Version="1.0.0" />
+    <PackageReference Include="%(Identity)" Version="1.0.0" />
+  </ItemGroup>
+
+  <!-- Central Package Management style (Update, no Version) -->
+  <ItemGroup>
+    <PackageReference Update="Acme.Internal.Logging" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,45 @@
+[package]
+name = "my-app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# should NOT alert — exist on crates.io
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+
+# should alert — plain dep, not on crates.io
+acme-internal-utils = "1.0"
+corp-private-rpc = { version = "2.0" }
+
+# should NOT alert — git pin, not resolved from crates.io
+internal-fork = { git = "https://github.com/corp/internal-fork", branch = "main" }
+
+# should NOT alert — path pin
+local-helper = { path = "../local-helper" }
+
+# should NOT alert — alternative registry pin
+corp-registry-pkg = { version = "1.0", registry = "corp-registry" }
+
+# should NOT alert — workspace member
+shared-types = { workspace = true }
+
+# should alert — package rename: dep key is "myalias", resolved crate is "acme-nonexistent-crate-xyz"
+# the check should look up "acme-nonexistent-crate-xyz" on crates.io, NOT "myalias"
+myalias = { version = "1.0", package = "acme-nonexistent-crate-xyz" }
+
+[dev-dependencies]
+# should alert — dev deps are also checked
+corp-test-fixtures = "0.1"
+
+[build-dependencies]
+# should alert — build deps are especially dangerous (build.rs RCE)
+corp-build-tool = "1.0"
+
+[target.'cfg(windows)'.dependencies]
+# should alert — target-specific deps are checked
+corp-windows-helpers = "1.0"
+
+# should NOT alert — git-pinned target dep
+windows-rs = { git = "https://github.com/microsoft/windows-rs" }
